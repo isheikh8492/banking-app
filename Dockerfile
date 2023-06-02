@@ -14,10 +14,12 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-alpine
 
 WORKDIR /app
-COPY --from=build /app/target/bankingapp-0.0.1-SNAPSHOT.jar /app
+
+# Copy the jar file from the build stage to the final stage
+COPY --from=build /app/target/bankingapp-0.0.1-SNAPSHOT.jar /app/bankingapp-0.0.1-SNAPSHOT.jar
 
 # Set the startup command to run your binary
-CMD ["java", "-jar", "/app/bankingapp-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-Dspring.devtools.remote.secret=proj", "-jar", "/app/bankingapp-0.0.1-SNAPSHOT.jar"]
 
 
 
