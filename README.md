@@ -26,7 +26,7 @@ docker-compose up --build
 
 The `--build` option tells Docker Compose to build the images before starting the containers. This is needed the first time you run the application, or any time you make changes to the Dockerfile or the application's source code.
 
-Once the containers are running, the application will be accessible at `http://localhost:9090` (replace `9090` with the actual port number if it's different).
+Once the containers are running, the application will be accessible at `http://localhost:8101`.
 
 To stop the application and the MySQL database, you can use the `docker-compose down` command:
 
