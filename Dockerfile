@@ -1,6 +1,5 @@
 # Start with a base image containing Java runtime
-FROM maven:3.8-openjdk-17
-
+FROM maven:3.8-openjdk-17 AS build
 
 # The application's working directory within the Docker image
 WORKDIR /app
@@ -11,5 +10,15 @@ COPY . /app
 # Package the application
 RUN mvn clean package -DskipTests
 
+# Create final image
+FROM openjdk:17-alpine
+
+WORKDIR /app
+COPY --from=build /app/target/bankingapp-0.0.1-SNAPSHOT.jar /app
+
 # Set the startup command to run your binary
-CMD ["java", "-jar", "target/bankingapp-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "/app/bankingapp-0.0.1-SNAPSHOT.jar"]
+
+
+
+

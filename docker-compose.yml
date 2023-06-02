@@ -1,7 +1,10 @@
-version: '3'
+version: '3.8'
+
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8101:8101"
     depends_on:
@@ -9,13 +12,19 @@ services:
 
   mysql-db:
     image: mysql:8.0
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: bankingapp
       MYSQL_USER: user
       MYSQL_PASSWORD: pass
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
 
 volumes:
   mysql-data:
+
+
+
